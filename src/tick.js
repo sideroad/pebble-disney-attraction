@@ -6,6 +6,7 @@ var tick = function(cb, duration){
     }, duration);
   };
   _tick();
+  return cb;
 };
 
 module.exports = tick;

@@ -12,31 +12,46 @@ var data = {
   resorts: ['tdl', 'tds'],
   resort: 'tdl'
 };
-var name = new JaText({
-  position: new Vector2(0, 10),
-  size: new Vector2(144, 18),
-  color: 'black',
-  backgroundColor: 'white',
-  borderColor: 'white'
+var createItem = function(){
+  return {
+    name: new JaText({
+      position: new Vector2(0, 0),
+      size: new Vector2(144, 18),
+      color: 'black',
+      backgroundColor: 'white',
+      borderColor: 'white'
+    }),
+    wait: new UI.Text({
+      position: new Vector2(0, 18),
+      size: new Vector2(144, 31),
+      font: 'bitham-30-black',
+      color: 'black',
+      textAlign: 'right',
+      backgroundColor: 'white',
+      borderColor: 'white'
+    })
+  };
+};
+var items = [
+  createItem(),
+  createItem(),
+  createItem()
+];
+
+items.forEach(function(item, i){
+  item.name.position(new Vector2(0,  51*i));
+  item.wait.position(new Vector2(0, (51*i) + 18));
+  wind.add(item.name);
+  wind.add(item.wait);
 });
-var text = new UI.Text({
-  position: new Vector2(0, 30),
-  size: new Vector2(144, 36),
-  font: 'bitham-30-black',
-  color: 'black',
-  textAlign: 'right',
-  backgroundColor: 'white',
-  borderColor: 'white'
-});
-wind.add(name);
-wind.add(text);
 wind.show();
 
 var update = function(){
-  var item = data.attractions[data.page];
-  console.log(item.name, data.page);
-  name.text(item.name);
-  text.text(item.wait+'min');
+  
+  items.forEach(function(item, i){
+    item.name.text(data.attractions[data.page+i].name);
+    item.wait.text(data.attractions[data.page+i].wait+'min');
+  });
 };
 
 var get = function(){  
@@ -72,7 +87,7 @@ wind.on('click', 'up', function(){
 
 wind.on('click', 'down', function(){
   console.log(data.page);
-  if(data.page < data.attractions.length - 1){
+  if(data.page < data.attractions.length - items.length - 1){
     data.page++;
   }
   update();
