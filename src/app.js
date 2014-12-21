@@ -10,33 +10,30 @@ var data = {
   page: 0,
   attractions: [],
   resorts: ['tdl', 'tds'],
-  resort: 'tdl'
+  resort: 'tdl',
+  resortNames: {
+    'tdl': 'Disney Land',
+    'tds': 'Disney Sea'
+  }
 };
-var name = new JaText({
-  position: new Vector2(0, 10),
-  size: new Vector2(144, 18),
-  color: 'black',
-  backgroundColor: 'white',
-  borderColor: 'white'
+var menu = new UI.Menu({
+  sections: [{
+    title: data.resortNames[data.resort],
+    items: []
+  }]
 });
-var text = new UI.Text({
-  position: new Vector2(0, 30),
-  size: new Vector2(144, 36),
-  font: 'bitham-30-black',
-  color: 'black',
-  textAlign: 'right',
-  backgroundColor: 'white',
-  borderColor: 'white'
-});
-wind.add(name);
-wind.add(text);
-wind.show();
+
+menu.show();
 
 var update = function(){
-  var item = data.attractions[data.page];
-  console.log(item.name, data.page);
-  name.text(item.name);
-  text.text(item.wait+'min');
+  var items = [];
+  data.attractions.forEach(function(item){
+    items.push({
+      subtitle: item.wait+'min',
+      icon: 'http://capturing.herokuapp.com/cap/144/14/'+encodeURIComponent(item.name)+'.png?color=white&background-color=black&font-size=14px'
+    });
+  });
+  menu.items(0, items);
 };
 
 var get = function(){  
