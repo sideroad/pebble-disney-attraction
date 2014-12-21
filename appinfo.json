@@ -30,6 +30,11 @@
                 "type": "font"
             },
             {
+                "file": "images/disney-attraction.png",
+                "name": "IMAGES_DISNEY_ATTRACTION_PNG",
+                "type": "png"
+            },
+            {
                 "file": "images/icon.png",
                 "name": "IMAGES_ICON_PNG",
                 "type": "png"
